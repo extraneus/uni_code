@@ -1,0 +1,14 @@
+void update(int oldValue, int newValue) {
+    struct node* current = head;
+
+    while (current != NULL) {
+        if (current->data == oldValue) {
+            current->data = newValue;
+            printf("Value updated.\n");
+            return;
+        }
+        current = current->link;
+    }
+
+    printf("Value not found, update failed.\n");
+}
