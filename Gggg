@@ -1,0 +1,17 @@
+struct node* searchSorted(int item) {
+    struct node* ptr = head;
+    struct node* location = NULL;
+
+    while (ptr != NULL) {
+        if (item == ptr->data) {
+            location = ptr;
+            break;
+        } else if (item < ptr->data) {
+            location = NULL;
+            break;
+        }
+        ptr = ptr->link;
+    }
+
+    return location;
+}
