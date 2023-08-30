@@ -1,0 +1,14 @@
+void deleteAtBeginning() {
+    if (head == NULL) {
+        printf("Linked list is empty\n");
+        return;
+    }
+
+    struct node* temp = head;
+    head = head->next;
+    if (head != NULL) {
+        head->prev = NULL;
+    }
+
+    free(temp);
+}
