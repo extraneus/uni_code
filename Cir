@@ -1,0 +1,84 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int data;
+    struct node* link;
+};
+
+struct node* head;
+
+void createCircularList(int n) {
+    struct node* newnode, * tmp;
+    head = (struct node*)malloc(sizeof(struct node));
+    printf("Enter the data for the first node: ");
+    scanf("%d", &head->data);
+    head->link = head;  // Point back to itself
+    tmp = head;
+
+    for (int i = 2; i <= n; i++) {
+        newnode = (struct node*)malloc(sizeof(struct node));
+        printf("Input data for node %d: ", i);
+        scanf("%d", &newnode->data);
+        newnode->link = head;  // Point back to the head to create circular link
+        tmp->link = newnode;
+        tmp = tmp->link;
+    }
+}
+
+void printCircularData() {
+    if (head == NULL) {
+        printf("Linked list is empty\n");
+    } else {
+        struct node* ptr = head;
+        do {
+            printf("CURRENT ADDRESS: %p \n DATA: %d \n Next address: %p \n", ptr, ptr->data, ptr->link);
+            ptr = ptr->link;
+        } while (ptr != head);
+    }
+}
+
+void insertAtMiddle(int position, int data) {
+    struct node* newNode = (struct node*)malloc(sizeof(struct node));
+    newNode->data = data;
+
+    if (head == NULL) {
+        head = newNode;
+        newNode->link = head;
+        return;
+    }
+
+    struct node* ptr = head;
+    for (int i = 1; i < position - 1 && ptr->link != head; i++) {
+        ptr = ptr->link;
+    }
+
+    if (ptr->link == head) {
+        printf("Invalid position\n");
+        return;
+    }
+
+    newNode->link = ptr->link;
+    ptr->link = newNode;
+}
+
+int main() {
+    int n;
+    printf("Input the number of nodes: ");
+    scanf("%d", &n);
+    createCircularList(n);
+    printf("\nData entered in the circular linked list:\n");
+    printCircularData();
+
+    int position, newData;
+    printf("Enter position to insert at the middle: ");
+    scanf("%d", &position);
+    printf("Enter data to insert at position %d: ", position);
+    scanf("%d", &newData);
+    insertAtMiddle(position, newData);
+    printf("\nData after inserting at the middle:\n");
+    printCircularData();
+
+    // ... (rest of the main function)
+    return 0;
+}
