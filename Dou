@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int data;
+    struct node* prev;
+    struct node* next;
+};
+
+struct node* head;
+
+void createDoublyList(int n) {
+    struct node* newnode, * tmp;
+    head = (struct node*)malloc(sizeof(struct node));
+    printf("Enter the data for the first node: ");
+    scanf("%d", &head->data);
+    head->prev = NULL;
+    head->next = NULL;
+    tmp = head;
+
+    for (int i = 2; i <= n; i++) {
+        newnode = (struct node*)malloc(sizeof(struct node));
+        printf("Input data for node %d: ", i);
+        scanf("%d", &newnode->data);
+        newnode->prev = tmp;
+        newnode->next = NULL;
+        tmp->next = newnode;
+        tmp = tmp->next;
+    }
+}
+
+void printDoublyData() {
+    if (head == NULL) {
+        printf("Linked list is empty\n");
+    } else {
+        struct node* ptr = head;
+        while (ptr != NULL) {
+            printf("CURRENT ADDRESS: %p \n DATA: %d \n Prev address: %p \n Next address: %p \n", ptr, ptr->data, ptr->prev, ptr->next);
+            ptr = ptr->next;
+        }
+    }
+}
+
+// Other functions (insertAtBeginning, insertAtEnd, insertAtMiddle) need adjustments for the new doubly linked list structure.
+
+int main() {
+    int n;
+    printf("Input the number of nodes: ");
+    scanf("%d", &n);
+    createDoublyList(n);
+    printf("\nData entered in the doubly linked list:\n");
+    printDoublyData();
+    // ... (rest of the main function)
+    return 0;
+}
